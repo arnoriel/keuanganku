@@ -49,6 +49,46 @@ export default function DashboardPage() {
         </div>
       </header>
 
+      {/* TOTAL SALDO CARD - AT TOP */}
+      <section className="total-section">
+        <div className="total-card">
+          <div className="total-card-top">
+            <div>
+              <div className="total-card-label">
+                <i className="fa-solid fa-table-cells" />
+                Saldo Aku (Total)
+              </div>
+              <div className="total-card-amount">{maskTotal(wallet.totalSaldo)}</div>
+            </div>
+          </div>
+
+          <div className="total-divider" />
+
+          <div className="quick-stats">
+            <div className="quick-stat">
+              <div className="quick-stat-label">
+                <i className="fa-solid fa-arrow-trend-up" />
+                Pemasukkan Bulan Ini
+              </div>
+              <div className="quick-stat-value stat-income">
+                +{maskMonthIncome(wallet.monthIncome)}
+              </div>
+            </div>
+            <div className="quick-stat">
+              <div className="quick-stat-label">
+                <i className="fa-solid fa-arrow-trend-down" />
+                Pengeluaran Bulan Ini
+              </div>
+              <div className="quick-stat-value stat-expense">
+                -{maskMonthExpense(wallet.monthExpense)}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div style={{ height: 16 }} />
+
       {/* WALLET CARDS SECTION */}
       <section className="wallet-section">
 
@@ -117,44 +157,6 @@ export default function DashboardPage() {
               >
                 <i className={hideTabungan ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye'} />
               </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* TOTAL SALDO CARD */}
-      <section className="total-section">
-        <div className="total-card">
-          <div className="total-card-top">
-            <div>
-              <div className="total-card-label">
-                <i className="fa-solid fa-table-cells" />
-                Saldo Aku (Total)
-              </div>
-              <div className="total-card-amount">{maskTotal(wallet.totalSaldo)}</div>
-            </div>
-          </div>
-
-          <div className="total-divider" />
-
-          <div className="quick-stats">
-            <div className="quick-stat">
-              <div className="quick-stat-label">
-                <i className="fa-solid fa-arrow-trend-up" />
-                Pemasukkan Bulan Ini
-              </div>
-              <div className="quick-stat-value stat-income">
-                +{maskMonthIncome(wallet.monthIncome)}
-              </div>
-            </div>
-            <div className="quick-stat">
-              <div className="quick-stat-label">
-                <i className="fa-solid fa-arrow-trend-down" />
-                Pengeluaran Bulan Ini
-              </div>
-              <div className="quick-stat-value stat-expense">
-                -{maskMonthExpense(wallet.monthExpense)}
-              </div>
             </div>
           </div>
         </div>

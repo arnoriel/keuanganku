@@ -74,25 +74,16 @@ export function transferFunds(
   const state = getState();
   const now = new Date();
   const toLabel = to === 'tabungan' ? 'Tabungan' : 'Pegangan';
-  const fromLabel = from === 'pegangan' ? 'Pegangan' : 'Tabungan';
 
-  const txOut: Transaction = {
-    id: `tx_${Date.now()}_out`,
-    type: 'transfer_out',
-    amount,
-    wallet: from,
-    note: `Transfer ke Saldo ${toLabel}`,
-    date: now.toISOString().split('T')[0],
-    createdAt: now.toISOString(),
-  };
+  // Only record the receiving transaction (transfer_in)
   const txIn: Transaction = {
     id: `tx_${Date.now()}_in`,
     type: 'transfer_in',
     amount,
     wallet: to,
-    note: `Transfer dari Saldo ${fromLabel}`,
+    note: `Transfer ke Saldo ${toLabel}`,
     date: now.toISOString().split('T')[0],
-    createdAt: new Date(now.getTime() + 1).toISOString(),
+    createdAt: now.toISOString(),
   };
 
   const next: AppState = {
@@ -105,7 +96,7 @@ export function transferFunds(
       from === 'tabungan'
         ? state.saldoTabungan - amount
         : state.saldoTabungan + amount,
-    transactions: [txOut, txIn, ...state.transactions],
+    transactions: [txIn, ...state.transactions],
   };
   setState(next);
   return next;

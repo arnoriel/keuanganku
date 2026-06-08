@@ -27,6 +27,35 @@ export function formatTime(iso: string): string {
   }).format(new Date(iso));
 }
 
+export function formatDateAndTime(iso: string): string {
+  const date = new Date(iso);
+  const dateStr = date.toISOString().split('T')[0];
+  const today = new Date().toISOString().split('T')[0];
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  const yesterdayStr = yesterday.toISOString().split('T')[0];
+
+  let dateLabel = '';
+  if (dateStr === today) {
+    dateLabel = 'Hari Ini';
+  } else if (dateStr === yesterdayStr) {
+    dateLabel = 'Kemarin';
+  } else {
+    dateLabel = new Intl.DateTimeFormat('id-ID', {
+      day: 'numeric',
+      month: 'short',
+      year: '2-digit',
+    }).format(date);
+  }
+
+  const time = new Intl.DateTimeFormat('id-ID', {
+    hour: '2-digit',
+    minute: '2-digit',
+  }).format(date);
+
+  return `${dateLabel}, ${time}`;
+}
+
 export function formatDateHeader(dateStr: string): string {
   const date = new Date(dateStr + 'T00:00:00');
   const today = new Date();

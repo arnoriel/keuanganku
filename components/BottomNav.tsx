@@ -17,7 +17,7 @@ export default function BottomNav({ onFabClick }: BottomNavProps) {
         onClick={() => router.push('/')}
         aria-label="Beranda"
       >
-        <i className={`fa-${pathname === '/' ? 'solid' : 'regular'} fa-house`} />
+        <i className="fa-solid fa-home" />
         <span>Beranda</span>
       </button>
 

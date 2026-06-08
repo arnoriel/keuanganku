@@ -1,7 +1,7 @@
 'use client';
 
 import { Transaction } from '@/lib/types';
-import { formatRupiah, formatTime } from '@/lib/utils';
+import { formatRupiah, formatDateAndTime } from '@/lib/utils';
 
 interface TransactionItemProps {
   tx: Transaction;
@@ -24,14 +24,14 @@ const txConfig = {
     prefix: '-',
   },
   transfer_out: {
-    icon: <i className="fa-solid fa-arrow-up-from-bracket" />,
+    icon: <i className="fa-solid fa-arrow-up" />,
     label: (tx: Transaction) => tx.note || 'Transfer Keluar',
     colorClass: 'tx-amount-transfer-out',
     iconClass: 'tx-icon-transfer',
     prefix: '-',
   },
   transfer_in: {
-    icon: <i className="fa-solid fa-arrow-down-to-bracket" />,
+    icon: <i className="fa-solid fa-arrow-down" />,
     label: (tx: Transaction) => tx.note || 'Transfer Masuk',
     colorClass: 'tx-amount-positive',
     iconClass: 'tx-icon-transfer-in',
@@ -51,7 +51,7 @@ export default function TransactionItem({ tx }: TransactionItemProps) {
       </div>
       <div className="tx-info">
         <div className="tx-title">{label}</div>
-        <div className="tx-subtitle">{formatTime(tx.createdAt)}</div>
+        <div className="tx-subtitle">{formatDateAndTime(tx.createdAt)}</div>
       </div>
       <div className={`tx-amount ${cfg.colorClass}`}>{amountStr}</div>
     </div>

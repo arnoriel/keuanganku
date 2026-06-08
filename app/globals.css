@@ -110,7 +110,7 @@ a      { text-decoration: none; color: inherit; }
 
 .page {
   min-height: 100dvh;
-  padding-bottom: 96px;
+  padding-bottom: 100px;
   overflow-y: auto;
 }
 
@@ -663,7 +663,7 @@ a      { text-decoration: none; color: inherit; }
   transform: translateX(-50%);
   width: 100%;
   max-width: 430px;
-  height: 76px;
+  height: 80px;
   background: rgba(255, 255, 255, 0.96);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
@@ -671,7 +671,8 @@ a      { text-decoration: none; color: inherit; }
   display: flex;
   align-items: center;
   justify-content: space-around;
-  padding: 0 12px 8px;
+  padding: 8px 12px 8px;
+  padding-bottom: max(8px, env(safe-area-inset-bottom));
   z-index: 100;
   box-shadow: var(--shadow-nav);
 }
