@@ -60,7 +60,7 @@ function GoalCard({
       </div>
 
       <div className="goal-progress-track">
-        <div className="goal-progress-bar" style={{ width: `${pct}%`, background: isComplete ? 'var(--green-light)' : 'linear-gradient(90deg, var(--blue-from), var(--orange))' }} />
+        <div className="goal-progress-bar" style={{ width: `${pct}%`, background: isComplete ? 'linear-gradient(90deg, var(--green-light), var(--green))' : 'linear-gradient(90deg, var(--brand-light), var(--brand))' }} />
       </div>
 
       <div className="goal-progress-labels">

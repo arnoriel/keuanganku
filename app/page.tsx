@@ -45,14 +45,14 @@ export default function DashboardPage() {
         </div>
       </header>
 
-      {/* TOTAL SALDO CARD - AT TOP */}
+      {/* TOTAL SALDO HERO CARD */}
       <section className="total-section">
         <div className="total-card">
           <div className="total-card-top">
             <div>
               <div className="total-card-label">
-                <i className="fa-solid fa-table-cells" />
-                Saldo Aku (Total)
+                <i className="fa-solid fa-layer-group" />
+                Total Saldo
               </div>
               <div className="total-card-amount">{maskTotal(wallet.totalSaldo)}</div>
             </div>
@@ -64,7 +64,7 @@ export default function DashboardPage() {
             <div className="quick-stat">
               <div className="quick-stat-label">
                 <i className="fa-solid fa-arrow-trend-up" />
-                Pemasukkan Bulan Ini
+                Masuk Bulan Ini
               </div>
               <div className="quick-stat-value stat-income">
                 +{maskMonthIncome(wallet.monthIncome)}
@@ -73,7 +73,7 @@ export default function DashboardPage() {
             <div className="quick-stat">
               <div className="quick-stat-label">
                 <i className="fa-solid fa-arrow-trend-down" />
-                Pengeluaran Bulan Ini
+                Keluar Bulan Ini
               </div>
               <div className="quick-stat-value stat-expense">
                 -{maskMonthExpense(wallet.monthExpense)}
@@ -83,18 +83,15 @@ export default function DashboardPage() {
         </div>
       </section>
 
-      <div style={{ height: 16 }} />
+      <div style={{ height: 14 }} />
 
-      {/* WALLET CARDS SECTION */}
+      {/* WALLET CARDS */}
       <section className="wallet-section">
 
-        {/* SALDO PEGANGAN - GREEN CARD */}
+        {/* SALDO PEGANGAN */}
         <div className="wallet-card wallet-card-green">
-          <div className="card-glow card-glow-green" />
-          <div className="card-circles">
-            <div className="card-circle card-circle-1" />
-            <div className="card-circle card-circle-2" />
-          </div>
+          <div className="card-deco" />
+          <div className="card-shine" />
           <div className="card-content">
             <div className="card-label">
               <i className="fa-solid fa-wallet" />
@@ -103,12 +100,13 @@ export default function DashboardPage() {
             <div className="card-amount">{maskPegangan(wallet.saldoPegangan)}</div>
             <div className="card-footer">
               <span className="card-badge">
-                +{maskPeganganShort(wallet.todayIncome)} hari ini
+                <i className="fa-solid fa-plus" style={{ fontSize: 9 }} />
+                {maskPeganganShort(wallet.todayIncome)} hari ini
               </span>
               <button
                 className="card-eye-btn"
                 onClick={() => setHidePegangan((h) => !h)}
-                aria-label={hidePegangan ? 'Tampilkan saldo pegangan' : 'Sembunyikan saldo pegangan'}
+                aria-label={hidePegangan ? 'Tampilkan saldo' : 'Sembunyikan saldo'}
               >
                 <i className={hidePegangan ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye'} />
               </button>
@@ -129,13 +127,10 @@ export default function DashboardPage() {
           <div className="transfer-line" />
         </div>
 
-        {/* SALDO TABUNGAN - BLUE CARD */}
+        {/* SALDO TABUNGAN */}
         <div className="wallet-card wallet-card-blue">
-          <div className="card-glow card-glow-blue" />
-          <div className="card-circles">
-            <div className="card-circle card-circle-1" />
-            <div className="card-circle card-circle-2" />
-          </div>
+          <div className="card-deco" />
+          <div className="card-shine" />
           <div className="card-content">
             <div className="card-label">
               <i className="fa-solid fa-piggy-bank" />
@@ -143,13 +138,14 @@ export default function DashboardPage() {
             </div>
             <div className="card-amount">{maskTabungan(wallet.saldoTabungan)}</div>
             <div className="card-footer">
-              <span className="card-badge card-badge-blue">
+              <span className="card-badge">
+                <i className="fa-solid fa-lock" style={{ fontSize: 9 }} />
                 Total tersimpan
               </span>
               <button
                 className="card-eye-btn"
                 onClick={() => setHideTabungan((h) => !h)}
-                aria-label={hideTabungan ? 'Tampilkan saldo tabungan' : 'Sembunyikan saldo tabungan'}
+                aria-label={hideTabungan ? 'Tampilkan saldo' : 'Sembunyikan saldo'}
               >
                 <i className={hideTabungan ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye'} />
               </button>
@@ -174,7 +170,7 @@ export default function DashboardPage() {
             </div>
             <div className="empty-state-text">Belum ada transaksi</div>
             <div className="empty-state-sub">
-              Klik tombol + untuk catat pemasukkan pertamamu
+              Klik tombol + di bawah untuk catat pemasukkan pertamamu
             </div>
           </div>
         ) : (

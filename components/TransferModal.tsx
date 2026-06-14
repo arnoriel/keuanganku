@@ -80,7 +80,6 @@ export default function TransferModal({ onClose }: Props) {
 
             {/* Transfer Flow UI */}
             <div className={`transfer-flow ${isSwapping ? 'swapping' : ''}`}>
-              {/* FROM */}
               <div className={`transfer-wallet-mini ${fromColor}`}>
                 <div className="transfer-wallet-dot" />
                 <div className="transfer-wallet-info">
@@ -90,7 +89,6 @@ export default function TransferModal({ onClose }: Props) {
                 </div>
               </div>
 
-              {/* Arrow + Swap */}
               <div className="transfer-mid">
                 <div className="transfer-arrow-line">
                   <i className="fa-solid fa-arrow-down" />
@@ -101,7 +99,6 @@ export default function TransferModal({ onClose }: Props) {
                 </button>
               </div>
 
-              {/* TO */}
               <div className={`transfer-wallet-mini ${toColor}`}>
                 <div className="transfer-wallet-dot" />
                 <div className="transfer-wallet-info">
@@ -114,10 +111,11 @@ export default function TransferModal({ onClose }: Props) {
 
             {/* Amount Input */}
             <div className="form-group">
-              <div className="form-label-row">
-                <label className="form-label">Jumlah Transfer</label>
-                <button className="btn-max" onClick={handleSetMax} type="button">
-                  Maks
+              <div className="transfer-amount-header">
+                <label className="form-label" style={{ margin: 0 }}>Jumlah Transfer</label>
+                <button className="transfer-max-btn" onClick={handleSetMax} type="button">
+                  <i className="fa-solid fa-bolt" />
+                  Maks {formatRupiah(fromBalance)}
                 </button>
               </div>
               <div className={`amount-input-wrapper ${isInsufficient ? 'input-error' : ''}`}>
@@ -147,14 +145,14 @@ export default function TransferModal({ onClose }: Props) {
                   <i className="fa-solid fa-rotate" />
                   {fromLabel} &rarr; {toLabel}
                 </span>
-                <span className="preview-amount" style={{ color: 'var(--blue-from)' }}>
+                <span className="preview-amount" style={{ color: 'var(--brand)' }}>
                   {formatRupiah(amount)}
                 </span>
               </div>
             )}
 
             <button
-              className="btn-primary btn-blue"
+              className="btn-primary"
               onClick={handleSubmit}
               disabled={!canSubmit}
             >
@@ -164,7 +162,7 @@ export default function TransferModal({ onClose }: Props) {
           </div>
         ) : (
           <div className="sheet-body sheet-success">
-            <div className="success-icon success-blue">
+            <div className="success-icon" style={{ background: 'var(--brand-subtle)', color: 'var(--brand)' }}>
               <i className="fa-solid fa-circle-check" />
             </div>
             <h2 className="success-title">Transfer Berhasil!</h2>

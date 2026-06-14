@@ -97,7 +97,7 @@ export default function AddTransactionSheet({ onClose }: Props) {
               <h2 className="sheet-title">Pemasukkan</h2>
               <div style={{ width: 36 }} />
             </div>
-            <p className="sheet-subtitle">Masukkan hasil narik kamu</p>
+            <p className="sheet-subtitle">Masukkan pendapatan kamu</p>
 
             <div className="form-group">
               <label className="form-label">Jumlah</label>
