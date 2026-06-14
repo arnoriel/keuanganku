@@ -43,11 +43,6 @@ export default function DashboardPage() {
           </div>
           <div className="header-date">{today}</div>
         </div>
-        <div className="header-actions">
-          <div className="header-avatar">
-            <i className="fa-solid fa-motorcycle" />
-          </div>
-        </div>
       </header>
 
       {/* TOTAL SALDO CARD - AT TOP */}
