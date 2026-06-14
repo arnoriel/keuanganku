@@ -91,11 +91,13 @@ export function parseAmountInput(raw: string): number {
 
 // ─── INCOME CATEGORY HELPERS ──────────────────────────────────────────────
 export const INCOME_CATEGORIES = [
-  { key: 'driver',    label: 'Driver',    icon: 'fa-motorcycle',          color: '#22c55e' },
-  { key: 'tunjangan', label: 'Tunjangan', icon: 'fa-hand-holding-dollar', color: '#3b82f6' },
-  { key: 'jualan',    label: 'Jualan',    icon: 'fa-store',               color: '#f59e0b' },
-  { key: 'pasif',     label: 'Pasif',     icon: 'fa-chart-line',          color: '#a855f7' },
-  { key: 'lainnya',   label: 'Lainnya',   icon: 'fa-ellipsis',            color: '#6b7280' },
+  { key: 'gaji',      label: 'Gaji',      icon: 'fa-briefcase',              color: '#10b981' },
+  { key: 'freelance', label: 'Freelance', icon: 'fa-laptop',                 color: '#6366f1' },
+  { key: 'driver',    label: 'Driver',    icon: 'fa-motorcycle',             color: '#22c55e' },
+  { key: 'jualan',    label: 'Jualan',    icon: 'fa-store',                  color: '#f59e0b' },
+  { key: 'tunjangan', label: 'Tunjangan', icon: 'fa-hand-holding-dollar',    color: '#3b82f6' },
+  { key: 'pasif',     label: 'Pasif',     icon: 'fa-chart-line',             color: '#a855f7' },
+  { key: 'lainnya',   label: 'Lainnya',   icon: 'fa-ellipsis',               color: '#6b7280' },
 ] as const;
 
 export const EXPENSE_CATEGORIES = [
@@ -108,7 +110,7 @@ export const EXPENSE_CATEGORIES = [
 ] as const;
 
 export function getIncomeCategory(key?: string) {
-  return INCOME_CATEGORIES.find(c => c.key === key) ?? INCOME_CATEGORIES[4];
+  return INCOME_CATEGORIES.find(c => c.key === key) ?? INCOME_CATEGORIES[6];
 }
 
 export function getExpenseCategory(key?: string) {

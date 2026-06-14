@@ -37,12 +37,12 @@ export default function BottomNav({ onFabClick }: BottomNavProps) {
       </div>
 
       <button
-        className={`nav-btn ${pathname === '/goals' ? 'active' : ''}`}
-        onClick={() => router.push('/goals')}
-        aria-label="Goals"
+        className={`nav-btn ${pathname === '/calculator' ? 'active' : ''}`}
+        onClick={() => router.push('/calculator')}
+        aria-label="Kalkulator"
       >
-        <i className="fa-solid fa-bullseye" />
-        <span>Goals</span>
+        <i className="fa-solid fa-calculator" />
+        <span>Kalkulator</span>
       </button>
 
       <button

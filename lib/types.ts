@@ -1,7 +1,7 @@
 export type TransactionType = 'income' | 'expense' | 'transfer_out' | 'transfer_in';
 export type WalletType = 'pegangan' | 'tabungan';
 export type IncomePeriod = 'harian' | 'bulanan';
-export type IncomeCategory = 'driver' | 'tunjangan' | 'jualan' | 'pasif' | 'lainnya';
+export type IncomeCategory = 'gaji' | 'freelance' | 'driver' | 'jualan' | 'tunjangan' | 'pasif' | 'lainnya';
 export type ExpenseCategory = 'bensin' | 'makan' | 'utang' | 'belanja' | 'hiburan' | 'lainnya';
 
 export interface Transaction {

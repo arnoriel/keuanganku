@@ -14,7 +14,7 @@ export default function AddTransactionSheet({ onClose }: Props) {
   const [step, setStep] = useState<Step>('choose');
   const [rawAmount, setRawAmount] = useState('');
   const [period, setPeriod] = useState<IncomePeriod>('harian');
-  const [incomeCategory, setIncomeCategory] = useState<IncomeCategory>('driver');
+  const [incomeCategory, setIncomeCategory] = useState<IncomeCategory>('lainnya');
   const [expenseCategory, setExpenseCategory] = useState<ExpenseCategory>('lainnya');
   const [note, setNote] = useState('');
   const [successMsg, setSuccessMsg] = useState('');

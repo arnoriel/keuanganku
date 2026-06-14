@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
+import { useRouter } from 'next/navigation';
 import { useWallet } from '@/context/WalletContext';
 import {
   formatRupiah, formatRupiahShort,
@@ -74,9 +75,54 @@ function BarChart({ bars }: { bars: MonthBar[] }) {
   );
 }
 
+// ─── Goals Teaser Card ────────────────────────────────────────────────────
+function GoalsTeaser({ savingsGoals, recurringExpenses, onNavigate }: {
+  savingsGoals: any[];
+  recurringExpenses: any[];
+  onNavigate: () => void;
+}) {
+  const activeGoals = savingsGoals.length;
+  const completedGoals = savingsGoals.filter(g => g.currentAmount >= g.targetAmount).length;
+  const activeRecurring = recurringExpenses.filter((r: any) => r.active).length;
+
+  return (
+    <section className="analytics-section">
+      <div className="section-header">
+        <span className="section-label">
+          <i className="fa-solid fa-bullseye" style={{ color: 'var(--orange)', marginRight: 6 }} />
+          Goals & Tagihan Rutin
+        </span>
+      </div>
+      <button className="goals-teaser-card" onClick={onNavigate}>
+        <div className="goals-teaser-stats">
+          <div className="goals-teaser-stat">
+            <div className="goals-teaser-num">{activeGoals}</div>
+            <div className="goals-teaser-label">Savings Goals</div>
+          </div>
+          <div className="goals-teaser-divider" />
+          <div className="goals-teaser-stat">
+            <div className="goals-teaser-num" style={{ color: 'var(--green-light)' }}>{completedGoals}</div>
+            <div className="goals-teaser-label">Tercapai</div>
+          </div>
+          <div className="goals-teaser-divider" />
+          <div className="goals-teaser-stat">
+            <div className="goals-teaser-num" style={{ color: 'var(--blue-light)' }}>{activeRecurring}</div>
+            <div className="goals-teaser-label">Tagihan Aktif</div>
+          </div>
+        </div>
+        <div className="goals-teaser-cta">
+          <span>Lihat & kelola goals</span>
+          <i className="fa-solid fa-arrow-right" />
+        </div>
+      </button>
+    </section>
+  );
+}
+
 // ─── Main Page ────────────────────────────────────────────────────────────
 export default function AnalyticsPage() {
-  const { transactions } = useWallet();
+  const { transactions, savingsGoals, recurringExpenses } = useWallet();
+  const router = useRouter();
   const now = new Date();
   const [year, setYear] = useState(now.getFullYear());
   const [month, setMonth] = useState(now.getMonth());
@@ -264,6 +310,13 @@ export default function AnalyticsPage() {
           <BarChart bars={trendBars} />
         </div>
       </section>
+
+      {/* Goals Teaser */}
+      <GoalsTeaser
+        savingsGoals={savingsGoals}
+        recurringExpenses={recurringExpenses}
+        onNavigate={() => router.push('/goals')}
+      />
 
       <div style={{ height: 24 }} />
     </>

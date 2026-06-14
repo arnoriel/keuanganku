@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { useWallet } from '@/context/WalletContext';
 import {
   formatRupiah, formatRupiahShort, parseAmountInput,
@@ -33,38 +34,46 @@ function GoalCard({
     setRawAmt('');
   }
 
+  const isComplete = pct >= 100;
+
   return (
-    <div className="goal-card">
+    <div className={`goal-card ${isComplete ? 'goal-card--complete' : ''}`}>
       <div className="goal-card-top">
         <div className="goal-emoji">{goal.emoji}</div>
         <div className="goal-info">
           <div className="goal-label">{goal.label}</div>
-          {goal.deadline && (
+          {goal.deadline ? (
             <div className="goal-deadline">
-              <i className="fa-regular fa-calendar" /> Target: {new Intl.DateTimeFormat('id-ID', { day: 'numeric', month: 'short', year: 'numeric' }).format(new Date(goal.deadline + 'T00:00:00'))}
+              <i className="fa-regular fa-calendar" /> {new Intl.DateTimeFormat('id-ID', { day: 'numeric', month: 'short', year: 'numeric' }).format(new Date(goal.deadline + 'T00:00:00'))}
+            </div>
+          ) : (
+            <div className="goal-deadline goal-deadline-muted">
+              <i className="fa-regular fa-clock" /> Tanpa deadline
             </div>
           )}
         </div>
+        {isComplete && (
+          <div className="goal-complete-badge"><i className="fa-solid fa-check" /></div>
+        )}
         <button className="goal-delete-btn" onClick={() => onDelete(goal.id)}><i className="fa-solid fa-trash" /></button>
       </div>
 
       <div className="goal-progress-track">
-        <div className="goal-progress-bar" style={{ width: `${pct}%`, background: pct >= 100 ? 'var(--green-light)' : 'linear-gradient(90deg, var(--blue-from), var(--orange))' }} />
+        <div className="goal-progress-bar" style={{ width: `${pct}%`, background: isComplete ? 'var(--green-light)' : 'linear-gradient(90deg, var(--blue-from), var(--orange))' }} />
       </div>
 
       <div className="goal-progress-labels">
         <span className="goal-current">{formatRupiahShort(goal.currentAmount)}</span>
-        <span className="goal-pct" style={{ color: pct >= 100 ? 'var(--green-light)' : 'var(--text-3)' }}>{pct}%</span>
+        <span className="goal-pct" style={{ color: isComplete ? 'var(--green-light)' : 'var(--text-3)' }}>{pct}%</span>
         <span className="goal-target">{formatRupiahShort(goal.targetAmount)}</span>
       </div>
 
-      {pct < 100 && (
-        <div style={{ fontSize: 12, color: 'var(--text-3)', marginTop: 4 }}>
-          Sisa: <strong style={{ color: 'var(--text-2)' }}>{formatRupiahShort(remaining)}</strong> lagi
+      {!isComplete ? (
+        <div className="goal-remaining">
+          Sisa <strong>{formatRupiahShort(remaining)}</strong> lagi
         </div>
-      )}
-      {pct >= 100 && (
-        <div style={{ fontSize: 12, color: 'var(--green-light)', marginTop: 4, fontWeight: 600 }}>
+      ) : (
+        <div className="goal-remaining goal-remaining--done">
           🎉 Goal tercapai!
         </div>
       )}
@@ -95,20 +104,19 @@ function RecurringItem({
   const cat = getExpenseCategory(rec.category);
   const nextDue = getNextDueDate(rec);
   const daysUntil = getDaysUntil(nextDue);
-  const urgencyColor = daysUntil === 0 ? '#ef4444' : daysUntil <= 3 ? '#f97316' : 'var(--text-3)';
+  const urgency = daysUntil === 0 ? 'now' : daysUntil <= 3 ? 'soon' : 'normal';
+  const urgencyLabel = daysUntil === 0 ? '⚡ Hari ini' : daysUntil === 1 ? '⚠️ Besok' : `${daysUntil} hari lagi`;
 
   return (
     <div className={`recurring-item ${!rec.active ? 'recurring-inactive' : ''}`}>
-      <div className="recurring-icon" style={{ background: cat.color + '22' }}>
-        <i className={`fa-solid ${cat.icon}`} style={{ color: cat.color }} />
+      <div className="recurring-icon" style={{ background: cat.color + '1A', color: cat.color }}>
+        <i className={`fa-solid ${cat.icon}`} />
       </div>
       <div className="recurring-info">
         <div className="recurring-label">{rec.label}</div>
         <div className="recurring-meta">
-          <span>{recurringFrequencyLabel(rec)}</span>
-          <span style={{ color: urgencyColor, fontWeight: daysUntil <= 3 ? 600 : 400 }}>
-            {daysUntil === 0 ? '⚡ Hari ini!' : daysUntil === 1 ? '⚠️ Besok' : `${daysUntil} hari lagi`}
-          </span>
+          <span className="recurring-freq">{recurringFrequencyLabel(rec)}</span>
+          <span className={`urgency-badge urgency-${urgency}`}>{urgencyLabel}</span>
         </div>
       </div>
       <div className="recurring-right">
@@ -293,6 +301,7 @@ function AddRecurringSheet({ onClose, onAdd }: { onClose: () => void; onAdd: (da
 // ─── Main Page ────────────────────────────────────────────────────────────
 export default function GoalsPage() {
   const { savingsGoals, recurringExpenses, saldoPegangan, addGoal, updateGoalAmount, deleteGoal, addRecurring, toggleRecurring, deleteRecurring } = useWallet();
+  const router = useRouter();
   const [showGoalSheet, setShowGoalSheet] = useState(false);
   const [showRecurringSheet, setShowRecurringSheet] = useState(false);
 
@@ -311,14 +320,44 @@ export default function GoalsPage() {
     return da < db ? -1 : da > db ? 1 : 0;
   });
 
+  const totalSaved = savingsGoals.reduce((s, g) => s + g.currentAmount, 0);
+  const totalTarget = savingsGoals.reduce((s, g) => s + g.targetAmount, 0);
+  const overallPct = totalTarget > 0 ? Math.min(100, Math.round(totalSaved / totalTarget * 100)) : 0;
+
   return (
     <>
-      <header className="page-header">
+      {/* Header with back button */}
+      <header className="page-header goals-header">
+        <button className="goals-back-btn" onClick={() => router.push('/analytics')}>
+          <i className="fa-solid fa-chevron-left" />
+        </button>
         <div>
           <div className="header-greeting">Pantau</div>
           <div className="header-name"><span className="header-name-brand">Goals & Tagihan</span></div>
         </div>
+        <div style={{ width: 36 }} />
       </header>
+
+      {/* Overall savings summary */}
+      {savingsGoals.length > 0 && (
+        <section style={{ padding: '0 16px 16px' }}>
+          <div className="goals-summary-card">
+            <div className="goals-summary-text">
+              <div className="goals-summary-label">Total Terkumpul</div>
+              <div className="goals-summary-amount">{formatRupiahShort(totalSaved)}</div>
+              <div className="goals-summary-target">dari target {formatRupiahShort(totalTarget)}</div>
+            </div>
+            <div className="goals-summary-ring">
+              <svg viewBox="0 0 64 64" className="goals-summary-ring-svg">
+                <circle cx="32" cy="32" r="28" className="goals-summary-ring-track" />
+                <circle cx="32" cy="32" r="28" className="goals-summary-ring-fill"
+                  strokeDasharray={`${overallPct * 1.759} 1000`} />
+              </svg>
+              <div className="goals-summary-ring-label">{overallPct}%</div>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Obligation overview */}
       {activeRecurring.length > 0 && (
