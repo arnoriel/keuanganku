@@ -1,5 +1,6 @@
 'use client';
 
+import '@/styles/transaction-item.css';
 import { Transaction } from '@/lib/types';
 import { formatRupiah, formatDateAndTime, getIncomeCategory, getExpenseCategory } from '@/lib/utils';
 

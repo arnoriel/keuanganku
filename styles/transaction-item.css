@@ -1,0 +1,72 @@
+/* =====================
+   TRANSACTION ITEM
+   ===================== */
+.tx-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 14px 16px;
+  box-shadow: 0 2px 8px rgba(60,70,120,0.05);
+  transition: transform 0.15s ease;
+}
+
+.tx-item:active { transform: scale(0.98); }
+
+.tx-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 15px;
+}
+
+.tx-icon-income    { background: rgba(0, 168, 107, 0.12); color: #00A86B; }
+.tx-icon-expense   { background: rgba(220, 60, 60, 0.10); color: var(--red); }
+.tx-icon-transfer  { background: rgba(75, 123, 245, 0.12); color: var(--blue-from); }
+.tx-icon-transfer-in { background: rgba(0, 168, 107, 0.10); color: #00A86B; }
+
+.tx-icon-cat {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--r-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.tx-info { flex: 1; min-width: 0; }
+
+.tx-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-1);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tx-subtitle {
+  font-size: 11.5px;
+  color: var(--text-3);
+  margin-top: 2px;
+  font-weight: 400;
+}
+
+.tx-amount {
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: -0.2px;
+  flex-shrink: 0;
+}
+
+.tx-amount-positive     { color: #00A86B; }
+.tx-amount-negative     { color: var(--red); }
+.tx-amount-transfer-out { color: var(--blue-from); }

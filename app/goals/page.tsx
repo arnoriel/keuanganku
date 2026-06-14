@@ -1,5 +1,6 @@
 'use client';
 
+import '@/styles/goals.css';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useWallet } from '@/context/WalletContext';

@@ -1,5 +1,6 @@
 'use client';
 
+import '@/styles/home.css';
 import { useState } from 'react';
 import { useWallet } from '@/context/WalletContext';
 import TransactionItem from '@/components/TransactionItem';

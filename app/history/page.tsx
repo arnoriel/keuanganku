@@ -1,5 +1,6 @@
 'use client';
 
+import '@/styles/history.css';
 import { useState, useMemo } from 'react';
 import { useWallet } from '@/context/WalletContext';
 import TransactionItem from '@/components/TransactionItem';

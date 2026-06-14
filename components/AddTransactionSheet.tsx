@@ -1,5 +1,6 @@
 'use client';
 
+import '@/styles/sheet.css';
 import { useState, useRef, useEffect } from 'react';
 import { useWallet } from '@/context/WalletContext';
 import { IncomePeriod, IncomeCategory, ExpenseCategory } from '@/lib/types';

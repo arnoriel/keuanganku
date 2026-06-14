@@ -1,5 +1,6 @@
 'use client';
 
+import '@/styles/calculator.css';
 import { useState, useCallback } from 'react';
 
 // ── Types ──────────────────────────────────────────────────────────────────────

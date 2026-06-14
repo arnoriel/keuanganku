@@ -1,5 +1,6 @@
 'use client';
 
+import '@/styles/analytics.css';
 import { useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { useWallet } from '@/context/WalletContext';

@@ -1,5 +1,6 @@
 'use client';
 
+import '@/styles/splash.css';
 import { useEffect, useState } from 'react';
 
 export default function SplashScreen() {

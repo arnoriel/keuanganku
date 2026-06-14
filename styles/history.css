@@ -1,0 +1,115 @@
+/* =====================
+   HISTORY PAGE
+   ===================== */
+.history-header { padding-bottom: 12px; }
+
+.history-summary {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: 0 20px 16px;
+}
+
+.history-summary-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 14px 16px;
+  box-shadow: 0 2px 8px rgba(60,70,120,0.06);
+}
+
+.hs-label {
+  font-size: 11px;
+  color: var(--text-3);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 5px;
+}
+
+.hs-label i { font-size: 11px; }
+
+.hs-value {
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+}
+
+.hs-green { color: #00A86B; }
+.hs-red   { color: var(--red); }
+
+.filter-tabs {
+  display: flex;
+  gap: 8px;
+  padding: 0 20px 16px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.filter-tabs::-webkit-scrollbar { display: none; }
+
+.filter-tab {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  color: var(--text-2);
+  transition: all 0.2s ease;
+  font-family: var(--font);
+  box-shadow: 0 2px 6px rgba(60,70,120,0.06);
+}
+
+.filter-tab i { font-size: 12px; }
+
+.filter-tab.active {
+  background: var(--text-1);
+  color: #fff;
+  border-color: var(--text-1);
+  box-shadow: 0 4px 12px rgba(26, 29, 46, 0.25);
+}
+
+.filter-tab:active { transform: scale(0.95); }
+
+.history-count {
+  padding: 0 20px 12px;
+  font-size: 12px;
+  color: var(--text-3);
+  font-weight: 500;
+}
+
+.history-list {
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.history-date-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-3);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.history-date-summary {
+  display: flex;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 12px;
+  text-transform: none;
+}
+
+.hds-income  { color: #00A86B; }
+.hds-expense { color: var(--red); }

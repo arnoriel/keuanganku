@@ -1,5 +1,6 @@
 'use client';
 
+import '@/styles/nav.css';
 import { usePathname, useRouter } from 'next/navigation';
 
 interface BottomNavProps {
