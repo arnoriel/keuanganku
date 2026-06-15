@@ -12,6 +12,7 @@ import { formatRupiah, formatRupiahShort, getGreeting, formatFullDate, getTodayD
 export default function DashboardPage() {
   const wallet = useWallet();
   const [showTransfer, setShowTransfer] = useState(false);
+  const [hideTotal, setHideTotal] = useState(false);
   const [hidePegangan, setHidePegangan] = useState(false);
   const [hideTabungan, setHideTabungan] = useState(false);
   const [editingTx, setEditingTx] = useState<Transaction | null>(null);
@@ -21,19 +22,19 @@ export default function DashboardPage() {
   const today = formatFullDate(todayStr);
   const greeting = getGreeting();
 
+  const maskTotal = (amount: number) =>
+    hideTotal ? '••••••' : formatRupiah(amount);
+  const maskMonthIncome = (amount: number) =>
+    hideTotal ? '•••' : formatRupiahShort(amount);
+  const maskMonthExpense = (amount: number) =>
+    hideTotal ? '•••' : formatRupiahShort(amount);
+
   const maskPegangan = (amount: number) =>
     hidePegangan ? '••••••' : formatRupiah(amount);
   const maskPeganganShort = (amount: number) =>
     hidePegangan ? '•••' : formatRupiahShort(amount);
   const maskTabungan = (amount: number) =>
     hideTabungan ? '••••••' : formatRupiah(amount);
-
-  const maskTotal = (amount: number) =>
-    (hidePegangan && hideTabungan) ? '••••••' : formatRupiah(amount);
-  const maskMonthIncome = (amount: number) =>
-    hidePegangan ? '•••' : formatRupiahShort(amount);
-  const maskMonthExpense = (amount: number) =>
-    hidePegangan ? '•••' : formatRupiahShort(amount);
 
   return (
     <>
@@ -59,6 +60,13 @@ export default function DashboardPage() {
               </div>
               <div className="total-card-amount">{maskTotal(wallet.totalSaldo)}</div>
             </div>
+            <button
+              className="card-eye-btn"
+              onClick={() => setHideTotal((h) => !h)}
+              aria-label={hideTotal ? 'Tampilkan total saldo' : 'Sembunyikan total saldo'}
+            >
+              <i className={hideTotal ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye'} />
+            </button>
           </div>
 
           <div className="total-divider" />
