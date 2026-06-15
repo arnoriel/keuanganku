@@ -4,6 +4,7 @@ import '@/styles/history.css';
 import { useState, useMemo } from 'react';
 import { useWallet } from '@/context/WalletContext';
 import TransactionItem from '@/components/TransactionItem';
+import EditTransactionSheet from '@/components/EditTransactionSheet';
 import { Transaction, TransactionType } from '@/lib/types';
 import { formatDateHeader, formatRupiah } from '@/lib/utils';
 
@@ -37,6 +38,7 @@ function groupByDate(txs: Transaction[]): Map<string, Transaction[]> {
 export default function HistoryPage() {
   const { transactions } = useWallet();
   const [filter, setFilter] = useState<Filter>('all');
+  const [editingTx, setEditingTx] = useState<Transaction | null>(null);
 
   const filtered = useMemo(
     () => transactions.filter((tx) => matchesFilter(tx, filter)),
@@ -144,7 +146,7 @@ export default function HistoryPage() {
                 </div>
                 <div className="tx-list">
                   {txs.map((tx) => (
-                    <TransactionItem key={tx.id} tx={tx} />
+                    <TransactionItem key={tx.id} tx={tx} onClick={setEditingTx} />
                   ))}
                 </div>
               </div>
@@ -154,6 +156,10 @@ export default function HistoryPage() {
       )}
 
       <div style={{ height: 24 }} />
+
+      {editingTx && (
+        <EditTransactionSheet tx={editingTx} onClose={() => setEditingTx(null)} />
+      )}
     </>
   );
 }

@@ -4,9 +4,12 @@ import '@/styles/transaction-item.css';
 import { Transaction } from '@/lib/types';
 import { formatRupiah, formatDateAndTime, getIncomeCategory, getExpenseCategory } from '@/lib/utils';
 
-interface TransactionItemProps { tx: Transaction; }
+interface TransactionItemProps {
+  tx: Transaction;
+  onClick?: (tx: Transaction) => void;
+}
 
-export default function TransactionItem({ tx }: TransactionItemProps) {
+export default function TransactionItem({ tx, onClick }: TransactionItemProps) {
   // Derive icon/color from category if available
   let icon: React.ReactNode;
   let iconBg: string;
@@ -43,7 +46,12 @@ export default function TransactionItem({ tx }: TransactionItemProps) {
   }
 
   return (
-    <div className="tx-item">
+    <div
+      className={`tx-item ${onClick ? 'tx-item-clickable' : ''}`}
+      onClick={onClick ? () => onClick(tx) : undefined}
+      role={onClick ? 'button' : undefined}
+      tabIndex={onClick ? 0 : undefined}
+    >
       <div className="tx-icon-cat" style={{ background: iconBg + '22', color: iconBg }}>
         {icon}
       </div>
@@ -52,6 +60,9 @@ export default function TransactionItem({ tx }: TransactionItemProps) {
         <div className="tx-subtitle">{formatDateAndTime(tx.createdAt)}</div>
       </div>
       <div className={`tx-amount ${amountColor}`}>{prefix}{formatRupiah(tx.amount)}</div>
+      {onClick && (
+        <div className="tx-edit-hint"><i className="fa-solid fa-chevron-right" /></div>
+      )}
     </div>
   );
 }

@@ -7,6 +7,7 @@ import {
   AppState, IncomePeriod, IncomeCategory, ExpenseCategory, RecurringExpense, SavingsGoal,
 } from '@/lib/types';
 import * as storage from '@/lib/storage';
+import type { TransactionEditData } from '@/lib/storage';
 
 interface WalletContextType extends AppState {
   totalSaldo: number;
@@ -16,6 +17,8 @@ interface WalletContextType extends AppState {
   addIncome: (amount: number, period: IncomePeriod, category?: IncomeCategory, note?: string) => void;
   addExpense: (amount: number, note: string, category?: ExpenseCategory) => void;
   transfer: (amount: number, from: 'pegangan' | 'tabungan', to: 'pegangan' | 'tabungan') => void;
+  updateTransaction: (id: string, data: TransactionEditData) => void;
+  deleteTransaction: (id: string) => void;
   addRecurring: (data: Omit<RecurringExpense, 'id' | 'createdAt'>) => void;
   toggleRecurring: (id: string) => void;
   deleteRecurring: (id: string) => void;
@@ -62,6 +65,14 @@ export function WalletProvider({ children }: { children: ReactNode }) {
     setWalletState(storage.transferFunds(amount, from, to));
   }, []);
 
+  const updateTransaction = useCallback((id: string, data: TransactionEditData) => {
+    setWalletState(storage.updateTransaction(id, data));
+  }, []);
+
+  const deleteTransaction = useCallback((id: string) => {
+    setWalletState(storage.deleteTransaction(id));
+  }, []);
+
   const addRecurring = useCallback((data: Omit<RecurringExpense, 'id' | 'createdAt'>) => {
     setWalletState(storage.addRecurring(data));
   }, []);
@@ -94,6 +105,7 @@ export function WalletProvider({ children }: { children: ReactNode }) {
       totalSaldo: walletState.saldoPegangan + walletState.saldoTabungan,
       ...stats,
       addIncome, addExpense, transfer,
+      updateTransaction, deleteTransaction,
       addRecurring, toggleRecurring, deleteRecurring,
       addGoal, updateGoalAmount, deleteGoal,
     }}>

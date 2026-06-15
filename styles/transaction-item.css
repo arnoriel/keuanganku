@@ -56,3 +56,23 @@
 .tx-amount-positive     { color: var(--green-dark); }
 .tx-amount-negative     { color: var(--red-dark); }
 .tx-amount-transfer-out { color: var(--brand); }
+
+/* =====================
+   TAPPABLE (EDIT/DELETE)
+   ===================== */
+.tx-item-clickable {
+  cursor: pointer;
+}
+
+.tx-item-clickable:active {
+  transform: scale(0.978);
+  background: var(--bg-card-2);
+  box-shadow: none;
+}
+
+.tx-edit-hint {
+  color: var(--text-4);
+  font-size: 12px;
+  flex-shrink: 0;
+  margin-left: 2px;
+}

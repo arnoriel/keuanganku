@@ -5,6 +5,8 @@ import { useState } from 'react';
 import { useWallet } from '@/context/WalletContext';
 import TransactionItem from '@/components/TransactionItem';
 import TransferModal from '@/components/TransferModal';
+import EditTransactionSheet from '@/components/EditTransactionSheet';
+import { Transaction } from '@/lib/types';
 import { formatRupiah, formatRupiahShort, getGreeting, formatFullDate, getTodayDateStr } from '@/lib/utils';
 
 export default function DashboardPage() {
@@ -12,6 +14,7 @@ export default function DashboardPage() {
   const [showTransfer, setShowTransfer] = useState(false);
   const [hidePegangan, setHidePegangan] = useState(false);
   const [hideTabungan, setHideTabungan] = useState(false);
+  const [editingTx, setEditingTx] = useState<Transaction | null>(null);
 
   const recentTx = wallet.transactions.slice(0, 8);
   const todayStr = getTodayDateStr();
@@ -176,7 +179,7 @@ export default function DashboardPage() {
         ) : (
           <div className="tx-list">
             {recentTx.map((tx) => (
-              <TransactionItem key={tx.id} tx={tx} />
+              <TransactionItem key={tx.id} tx={tx} onClick={setEditingTx} />
             ))}
           </div>
         )}
@@ -186,6 +189,10 @@ export default function DashboardPage() {
 
       {showTransfer && (
         <TransferModal onClose={() => setShowTransfer(false)} />
+      )}
+
+      {editingTx && (
+        <EditTransactionSheet tx={editingTx} onClose={() => setEditingTx(null)} />
       )}
     </>
   );
